@@ -1,0 +1,40 @@
+//
+//= require jquery.dataTables.min
+//= require dataTables.tableTools.min
+//= require dataTables.bootstrap
+
+//= require table-advanced
+
+//= require_self
+//
+
+jQuery(document).ready(function() {
+  Metronic.init(); // init metronic core components
+  Layout.init(); // init current layout
+  QuickSidebar.init() // init quick sidebar
+  TableAdvanced.init();
+  ComponentsPickers.init();
+
+  // check email for sign up
+  $('#createNew_button').click(function(){
+
+    var name = $('#createNew_name').val();
+    var arrival_time = $('#createNew_arrival_time').val();
+    var party_size = $('#createNew_party_size').val();
+    var location_id = $('#createNew_location_id').val();
+
+    if(name == '' || arrival_time == '' || party_size == '' || location_id == '' ) {
+      $('#createNew_alert span').html('Please insert Name, Arrival Time, Party Size and Location.');
+      $('#createNew_alert').css('display', 'block');
+      return false;
+    }
+
+    $('.createNew-form').submit();
+
+  });
+
+  $('#createNew_cancel_button').click(function(){
+    $('#createNewModal').modal('hide');
+  });
+});
+

@@ -1,0 +1,121 @@
+<body class="page-header-fixed page-quick-sidebar-over-content ">
+
+<!-- Notification Message -->
+<% if flash[:notice_content] %>
+    <div class="alert alert-<%= flash[:notice_type] %> alert-dismissible" role="alert" style="margin-top: 45px; margin-bottom: 0px;">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong><%= flash[:notice_content] %></strong>
+    </div>
+<% end %>
+<!-- // ENd Notification Message -->
+
+  <div class="page-content">
+    <div class="row">
+      <div class="page-title" style="float: right; margin-right: 50px; margin-top: 50px;">
+        <a class="btn blue" data-toggle="modal" href="#createNewModal"> <i class="fa fa-plus-circle"></i> &nbsp; Create New </a>
+      </div>
+      <div class="col-md-12">
+        <div class="portlet box blue-hoki">
+          <div class="portlet-title">
+            <div class="caption">
+              <i class="fa fa-users"></i> Reservation List Table
+            </div>
+            <div class="tools">
+            </div>
+          </div>
+          <div class="portlet-body">
+            <table class="table table-striped table-bordered table-hover" id="sample_1">
+              <thead>
+              <tr>
+                <th> Name </th>
+                <th> Arrival Time </th>
+                <th> Party Size </th>
+                <th> Location </th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @reservation_list.each do |reservationItem| %>
+              <tr>
+                <td> <%= reservationItem.name %> </td>
+                <td> <%= reservationItem.arrival_time %> </td>
+                <td> <%= reservationItem.party_size %> </td>
+                <td> <%= reservationItem.location.name %> </td>
+              </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- Create new reservation Modal -->
+<div id="createNewModal" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="margin-top: 100px;">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <h3 class="modal-title">Create New Reservation</h3>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="content">
+                <form class="createNew-form" action="<%= create_path %>" method="post">
+                  <div class="alert alert-danger display-hide" id="createNew_alert">
+                    <button class="close" data-close="alert"></button>
+        			      <span> Please insert Name, Arrival time and Party size. </span>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Name</label>
+                    <div class="input-icon">
+                      <i class="fa fa-font"></i>
+                      <input class="form-control placeholder-no-fix" type="text" placeholder="Name" id="createNew_name" name="name"/>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label visible-ie8 visible-ie9">Arrival Time</label>
+                    <div class="input-icon">
+                      <i class="fa fa-clock-o"></i>
+                      <input class="form-control placeholder-no-fix date form_datetime" type="text" placeholder="Arrival Time" id="createNew_arrival_time" name="arrival_time"/>
+                    </div>
+                  </div>
+                  <!--<div class="form-group">-->
+                    <!--<label class="control-label visible-ie8 visible-ie9">Phone</label>-->
+                    <!--<div class="input-icon">-->
+                      <!--<i class="fa fa-phone"></i>-->
+                      <!--<input class="form-control placeholder-no-fix" type="text" placeholder="Phone Number" name="phone"/>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <div class="form-group">
+                    <div class="input-icon">
+                      <i class="fa fa-tags"></i>
+                      <select class="form-control placeholder-no-fix" id="createNew_party_size" name="party_size" style="padding-left: 25px;">
+                        <option value=""> Party Size</option>
+                        <option value="1"> 1</option>
+                        <option value="2"> 2</option>
+                        <option value="3"> 3</option>
+                        <option value="3"> 4</option>
+                        <option value="3"> 5</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-actions">
+                    <a href="javascript:;" class="btn" id="createNew_cancel_button">
+                      <i class="m-icon-swapleft"></i> Cancel </a>
+                    <button type="button" id="createNew_button" class="btn blue pull-right">
+                      Create <i class="m-icon-swapright m-icon-white"></i>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- // End Modal -->
